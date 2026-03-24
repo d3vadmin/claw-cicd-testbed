@@ -1,2 +1,2 @@
-# claw-cicd-testbed
-claw cicd exploit testbed
+#testbed
+testbed
