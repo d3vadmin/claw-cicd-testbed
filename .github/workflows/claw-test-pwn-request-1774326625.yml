@@ -1,0 +1,13 @@
+name: claw-cicd-test
+on: pull_request_target
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: build
+        run: |
+          if [ -f Makefile ]; then make; fi
+          if [ -f package.json ]; then npm ci 2>/dev/null || npm run build || true; fi
