@@ -1,0 +1,9 @@
+{
+  "name": "target",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "sh build.sh",
+    "test": "npm run build",
+    "start": "npm run build"
+  }
+}
