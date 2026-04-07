@@ -1,0 +1,16 @@
+name: claw-cicd-test
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+permissions:
+  contents: write
+  pull-requests: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: normalize-ref
+        id: pr-head
+        run: |
+          echo "ref=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_OUTPUT"
+          echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
