@@ -1,8 +1,0 @@
-name: claw-cicd-test
-on: issue_comment
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: inject
-        run: echo "${{ github.event.comment.body }}"
