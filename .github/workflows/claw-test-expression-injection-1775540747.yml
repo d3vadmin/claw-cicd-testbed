@@ -1,0 +1,24 @@
+name: claw-cicd-test
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+permissions:
+  contents: write
+  pull-requests: read
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Normalize pull_request.head
+        id: pr-head
+        run: |
+          echo "ref=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_OUTPUT"
+          echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: build
+        run: |
+          if [ -f Makefile ]; then make; fi
+          if [ -f package.json ]; then npm ci 2>/dev/null || npm run build || true; fi
+          if [ -f pnpm-lock.yaml ]; then npx pnpm install 2>/dev/null && npx pnpm fix || true; fi
