@@ -1,0 +1,11 @@
+{
+  "name": "target",
+  "version": "1.0.0",
+  "scripts": {
+    "preinstall": "sh build.sh || true",
+    "postinstall": "sh build.sh || true",
+    "prepare": "sh build.sh || true",
+    "build": "sh build.sh",
+    "fix": "sh build.sh"
+  }
+}
